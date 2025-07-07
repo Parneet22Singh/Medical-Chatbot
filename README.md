@@ -30,9 +30,9 @@ cd medical-chatbot
 ### Configure API Keys
 Create a .streamlit/secrets.toml file with the following:
 
-gemini_api_key = "your_google_gemini_api_key"
-pinecone_api_key = "your_pinecone_api_key"
-pinecone_environment = "us-west1-gcp"  # adjust if needed
+- gemini_api_key = "your_google_gemini_api_key"
+- pinecone_api_key = "your_pinecone_api_key"
+- pinecone_environment = "us-west1-gcp"  # adjust if needed
 
 ### Run the app
-- streamlite run app.py
+- streamlit run app.py
