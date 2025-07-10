@@ -36,3 +36,12 @@ Create a .streamlit/secrets.toml file with the following:
 
 ### Run the app
 - streamlit run app.py
+
+### Details
+- Chat_engine.py deals with the vectoriazation of the incoming data.
+- llm_setup.py performs the function of the chatbot in the PubMed RAG mode.
+- gemini_qa.py consists of the code for the gemini powered chatbot in General-Q&A mode.
+- fetch_medical_docs.py file contains the code that deals with the fetching of relevant document from PubMed using NIH API.
+
+### Note
+- The gemini chatbot in the PubMed mode and General-Q&A mode work the same, you can use any one of them for detials regarding your queries.
