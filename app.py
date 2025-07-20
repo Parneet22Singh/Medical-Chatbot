@@ -1,8 +1,9 @@
 import os
 import streamlit as st
-from fetch_medical_docs import search_pubmed, fetch_abstracts, embed_articles_to_pinecone
-from chat_engine import build_chat_chain
+from fetch_medical_docs import search_pubmed, fetch_abstracts #,embed_articles_to_pinecone
+#from chat_engine import build_chat_chain
 import google.generativeai as genai
+from chat_engine import run_pubmed_chain
 
 # ───────────────────────────────
 # 🔑 Load Gemini API key from environment or secrets
@@ -89,17 +90,8 @@ def handle_general_qa(user_query):
     except Exception as e:
         st.error(f"❌ Error from Gemini API: {e}")
 
-# ───────────────────────────────
-# 🔍 PubMed RAG Mode
 def handle_pubmed_search(user_query):
-    with st.spinner("🔍 Searching PubMed and embedding..."):
-        pmids = search_pubmed(user_query, max_results=5)
-        articles = fetch_abstracts(pmids)
-        embed_articles_to_pinecone(articles)
-
-    with st.spinner("🤖 Answering using retrieved docs..."):
-        qa_chain = build_chat_chain()
-        result = qa_chain.invoke({"query": user_query})
+    result = run_pubmed_chain(user_query)
 
     st.subheader("💡 Answer:")
     st.write(result['result'])
@@ -124,7 +116,7 @@ if query:
 # ───────────────────────────────
 # 🧵 Chat History Display
 if mode == "General Q&A" and st.session_state.chat_history:
-    st.subheader("🧠 Gemini Q&A")
+    st.subheader("🧠 Gemini Q&A (Scroll down for latest conversation!")
     chat_html = '<div class="chat-container">'
     for role, msg in st.session_state.chat_history:
         if role == "You":
