@@ -44,4 +44,5 @@ Create a .streamlit/secrets.toml file with the following:
 - fetch_medical_docs.py file contains the code that deals with the fetching of relevant document from PubMed using NIH API.
 
 ### Note
-- The gemini chatbot in the PubMed mode and General-Q&A mode work the same, you can use any one of them for detials regarding your queries.
+- The PubMed Mode is more tuned for research and scientific purposes, for general purpose General Q&A can be used.
+- If there are connectivity issues or API request issues, simply restart (relaunch it in localhost) the session (try out reloading the website first).
