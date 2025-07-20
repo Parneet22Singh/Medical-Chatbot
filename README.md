@@ -21,8 +21,8 @@ A powerful AI-driven medical chatbot that supports:
 
 ### 1. Clone the Repository
 
-git clone https://github.com/Parneet22Singh/medical-chatbot.git
-cd medical-chatbot
+-git clone https://github.com/Parneet22Singh/medical-chatbot.git
+-cd medical-chatbot
 
 ### Install Dependencies
 - pip install -r requirements.txt
