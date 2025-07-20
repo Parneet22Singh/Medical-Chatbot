@@ -1,7 +1,6 @@
 import os
 import streamlit as st
-from fetch_medical_docs import search_pubmed, fetch_abstracts #,embed_articles_to_pinecone
-#from chat_engine import build_chat_chain
+from fetch_medical_docs import search_pubmed, fetch_abstracts 
 import google.generativeai as genai
 from chat_engine import run_pubmed_chain
 
