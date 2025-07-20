@@ -1,6 +1,6 @@
 import os
 import streamlit as st
-from fetch_medical_docs import search_pubmed, fetch_abstracts 
+from fetch_medical_docs import search_pubmed, fetch_abstracts
 import google.generativeai as genai
 from chat_engine import run_pubmed_chain
 
@@ -76,7 +76,7 @@ st.markdown("""
 # ───────────────────────────────
 # 🎯 Streamlit UI
 st.title("🩺 Medical Chatbot (Pinecone + Gemini)")
-mode = st.radio("Choose interaction mode:", ["PubMed Search", "General Q&A"], index=0)
+mode = st.radio("Choose interaction mode:", ["PubMed Search (Reseach Oriented)", "General Q&A (Recommended for general usage)"], index=0)
 query = st.text_input("What would you like to know?")
 
 # ───────────────────────────────
@@ -107,14 +107,14 @@ def handle_pubmed_search(user_query):
 # ───────────────────────────────
 # 🧠 Main Logic
 if query:
-    if mode == "General Q&A":
+    if mode == "General Q&A (Recommended for general usage)":
         handle_general_qa(query)
-    elif mode == "PubMed Search":
+    elif mode == "PubMed Search (Reseach Oriented)":
         handle_pubmed_search(query)
 
 # ───────────────────────────────
 # 🧵 Chat History Display
-if mode == "General Q&A" and st.session_state.chat_history:
+if mode == "General Q&A (Recommended for general usage)" and st.session_state.chat_history:
     st.subheader("🧠 Gemini Q&A (Scroll down for latest conversation!")
     chat_html = '<div class="chat-container">'
     for role, msg in st.session_state.chat_history:
@@ -140,3 +140,4 @@ if(chatContainer){
 }
 </script>
 """, unsafe_allow_html=True)
+
