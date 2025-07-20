@@ -4,9 +4,8 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain.chains import RetrievalQA
 from langchain_core.documents import Document
 from langchain.prompts import PromptTemplate
-from fetch_medical_docs import search_pubmed, fetch_abstracts
+from fetch_medical_docs import search_pubmed, fetch_abstracts, embed_articles_to_pinecone
 from llm_setup import load_light_llm
-
 
 def run_pubmed_chain(user_query):
     with st.spinner("🔍 Searching PubMed and embedding..."):
@@ -28,9 +27,13 @@ def run_pubmed_chain(user_query):
         if not docs:
             return {"result": "⚠️ No relevant documents found with abstracts and titles.", "source_documents": []}
 
+        embed_articles_to_pinecone(articles)
+        st.write("📍 Articles have been embedded into Pinecone.")
+
         embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
         vectorstore = FAISS.from_documents(docs, embedding_model)
         retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
+
         llm = load_light_llm()
 
         system_instruction = (
@@ -60,4 +63,3 @@ def run_pubmed_chain(user_query):
             result = qa_chain.invoke({"query": user_query})
 
         return result
-        
